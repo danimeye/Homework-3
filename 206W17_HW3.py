@@ -21,9 +21,10 @@ import re
 ## Write code to define your parse_counted_words function here.
 
 def parse_counted_words(string):
+    word = string.split(",")
     y = re.findall('^[0-9]+\s[a-z]+.$', string)
     if len(y) > 1:
-        return y
+        return y[-1]
     else:
         return None 
 
@@ -42,13 +43,24 @@ file_paths_num = len(listcount)
 
 ## (b) Write Python code to determine how many of these paths are FULL paths, not relative paths. Save that number in the variable full_paths_num.
 filename = open("computer_paths.txt")
-data = filename.read()
-listcount = re.findall("(~\/|\/)", data)
-full_paths_num = len(listcount)
+data = filename.readlines()
+count = 0
+for line in data:
+    if re.search("^(~\/|\/)", line) :
+        count += 1
+full_paths_num = count
+
 ## (c) Write Python code to determine how many of these paths describe a Python file saved inside a folder called SI206. Save that number in the variable python_course_paths.
+filename = open("computer_paths.txt")
+data = filename.read()
+listcount = re.findall("\w+206\/\w+\.py", data)
+python_course_paths = len(listcount)
 
 ## (d) Write Python code to determine how many of these paths describe a Microsoft file (a file that EITHER ends with .docx OR .xlsx, but nothing else counts) where the file name ends in a digit. Save that total in the variable microsoft_files_num.
-
+filename = open("computer_paths.txt")
+data = filename.read()
+listcount = re.findall("[0-9]\.(docx|xlsx)", data)
+microsoft_files_num = len(listcount)
 
  
 
