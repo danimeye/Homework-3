@@ -20,16 +20,16 @@ import re
 
 ## Write code to define your parse_counted_words function here.
 
-def parse_counted_words(string):
-    word = string.split(",")
-    y = re.findall('^[0-9]+\s[a-z]+.$', string)
-    if len(y) > 1:
-        return y[-1]
+def parse_counted_words(x):
+ #if re.search("\b[0-9]+ \W*\w+", string) :
+    words = re.findall('[0-9]+ [^\w]*[A-z]+', x)
+    if len(words) != 0:
+        x = words[-1] # "1 papaya"
+        x.rstrip()
+        list_of_words = x.split()
+        return list_of_words[0], list_of_words[1]
     else:
-        return None 
-
-
-
+        return None
 
 ## PART 2: 200 points
 
@@ -61,12 +61,7 @@ filename = open("computer_paths.txt")
 data = filename.read()
 listcount = re.findall("[0-9]\.(docx|xlsx)", data)
 microsoft_files_num = len(listcount)
-
  
-
-
-
-
 ## We have provided unit tests in this file. To earn the full 500 points, you'll need to pass all of the tests and will need to have followed the instructions.
 ## Each class of the tests represents one "part" of the homework, and the points for each part are divided approx. equally between each of the tests.
 
